@@ -1,0 +1,603 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Selamat Balik Pondok</title>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Poppins',sans-serif;
+}
+
+body{
+    overflow:hidden;
+    height:100vh;
+    position:relative;
+    background:linear-gradient(135deg,#ffd6e7,#d8ecff);
+}
+
+/* =========================
+   HIASAN SCENE 1
+========================= */
+
+.bubble{
+    position:absolute;
+    border-radius:50%;
+    background:rgba(255,255,255,0.25);
+    animation:floatBubble linear infinite;
+}
+
+.b1{
+    width:120px;
+    height:120px;
+    top:8%;
+    left:10%;
+    animation-duration:12s;
+}
+
+.b2{
+    width:80px;
+    height:80px;
+    bottom:18%;
+    right:12%;
+    animation-duration:10s;
+}
+
+.b3{
+    width:60px;
+    height:60px;
+    top:20%;
+    right:25%;
+    animation-duration:8s;
+}
+
+@keyframes floatBubble{
+    0%,100%{
+        transform:translateY(0);
+    }
+    50%{
+        transform:translateY(-20px);
+    }
+}
+
+.star{
+    position:absolute;
+    color:white;
+    font-size:18px;
+    opacity:0.7;
+    animation:blink 2s infinite;
+}
+
+.s1{ top:15%; left:75%; }
+.s2{ top:70%; left:15%; }
+.s3{ top:35%; left:20%; }
+
+@keyframes blink{
+    0%,100%{
+        opacity:0.2;
+    }
+    50%{
+        opacity:1;
+    }
+}
+
+.love{
+    position:absolute;
+    font-size:18px;
+    animation:loveFloat 4s infinite ease-in-out;
+    opacity:0.8;
+}
+
+.love1{
+    top:12%;
+    left:18%;
+}
+
+.love2{
+    bottom:15%;
+    right:18%;
+}
+
+@keyframes loveFloat{
+    0%,100%{
+        transform:translateY(0);
+    }
+    50%{
+        transform:translateY(-12px);
+    }
+}
+
+/* =========================
+   SCENE
+========================= */
+
+.scene1,
+.scene2{
+    position:absolute;
+    width:100%;
+    height:100%;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    flex-direction:column;
+    text-align:center;
+    padding:20px;
+
+    opacity:0;
+    visibility:hidden;
+    transform:scale(1.05);
+
+    transition:
+        opacity 1.2s ease,
+        transform 1.2s ease,
+        visibility 1.2s;
+}
+
+.scene1.active,
+.scene2.active{
+    opacity:1;
+    visibility:visible;
+    transform:scale(1);
+}
+
+.scene1.hide{
+    opacity:0;
+    transform:scale(0.92);
+    filter:blur(10px);
+}
+
+/* =========================
+   CARD
+========================= */
+
+.card{
+    background:rgba(255,255,255,0.45);
+    backdrop-filter:blur(10px);
+    padding:35px;
+    border-radius:30px;
+    width:90%;
+    max-width:430px;
+    box-shadow:0 10px 35px rgba(0,0,0,0.12);
+    border:1px solid rgba(255,255,255,0.5);
+    animation:cardFloat 4s ease-in-out infinite;
+}
+
+@keyframes cardFloat{
+    0%,100%{
+        transform:translateY(0);
+    }
+    50%{
+        transform:translateY(-8px);
+    }
+}
+
+h1{
+    color:#ff5e9c;
+    margin-bottom:15px;
+    font-size:32px;
+}
+
+.message{
+    color:#4d5b7c;
+    font-size:17px;
+    line-height:1.8;
+}
+
+button{
+    margin-top:25px;
+    padding:14px 35px;
+    border:none;
+    border-radius:50px;
+    background:linear-gradient(135deg,#ff8fc2,#9ed2ff);
+    color:white;
+    font-size:18px;
+    cursor:pointer;
+    transition:0.3s;
+    box-shadow:0 5px 15px rgba(0,0,0,0.15);
+}
+
+button:hover{
+    transform:scale(1.08);
+}
+
+/* =========================
+   SCENE 2 MALAM
+========================= */
+
+.scene2{
+    overflow:hidden;
+    background:
+    radial-gradient(circle at top,#243b70 0%,#0b1026 50%,#02030a 100%);
+}
+
+/* Bulan */
+.moon{
+    position:absolute;
+    top:70px;
+    right:70px;
+    width:120px;
+    height:120px;
+    border-radius:50%;
+    background:#f7f2d3;
+    box-shadow:
+        0 0 40px rgba(255,255,220,0.8),
+        0 0 80px rgba(255,255,220,0.5);
+    animation:moonGlow 4s infinite ease-in-out;
+}
+
+@keyframes moonGlow{
+    0%,100%{
+        transform:scale(1);
+    }
+    50%{
+        transform:scale(1.05);
+    }
+}
+
+/* Gunung */
+.mountain{
+    position:absolute;
+    bottom:0;
+    width:100%;
+    height:220px;
+    background:#0d132d;
+    clip-path:polygon(
+        0% 100%,
+        10% 70%,
+        20% 100%,
+        35% 55%,
+        50% 100%,
+        65% 60%,
+        80% 100%,
+        100% 40%,
+        100% 100%
+    );
+}
+
+/* Pohon */
+.tree{
+    position:absolute;
+    bottom:120px;
+    width:18px;
+    height:90px;
+    background:#111;
+}
+
+.tree::before{
+    content:'';
+    position:absolute;
+    bottom:50px;
+    left:-30px;
+    width:80px;
+    height:80px;
+    background:#0a0f1f;
+    clip-path:polygon(
+        50% 0%,
+        0% 100%,
+        100% 100%
+    );
+}
+
+.t1{ left:12%; }
+.t2{ left:24%; }
+.t3{ right:15%; }
+.t4{ right:28%; }
+
+/* Bintang */
+.static-star{
+    position:absolute;
+    background:white;
+    border-radius:50%;
+    opacity:0.8;
+    animation:twinkle 3s infinite ease-in-out;
+}
+
+@keyframes twinkle{
+    0%,100%{
+        opacity:0.3;
+        transform:scale(1);
+    }
+    50%{
+        opacity:1;
+        transform:scale(1.4);
+    }
+}
+
+/* Shooting star */
+.shooting-star{
+    position:absolute;
+    width:3px;
+    height:3px;
+    background:white;
+    border-radius:50%;
+    box-shadow:0 0 10px white;
+    animation:shoot linear forwards;
+}
+
+.shooting-star::after{
+    content:'';
+    position:absolute;
+    width:120px;
+    height:2px;
+    background:linear-gradient(
+        90deg,
+        rgba(255,255,255,0.8),
+        transparent
+    );
+    transform:translateX(-120px);
+}
+
+@keyframes shoot{
+    0%{
+        transform:
+        translate(0,0)
+        rotate(-25deg);
+        opacity:1;
+    }
+
+    100%{
+        transform:
+        translate(-600px,300px)
+        rotate(-25deg);
+        opacity:0;
+    }
+}
+
+/* =========================
+   TULISAN TENGAH
+========================= */
+
+.semangat{
+    position:absolute;
+    z-index:5;
+    top:50%;
+    left:50%;
+    transform:translate(-50%,-50%);
+    text-align:center;
+    font-size:34px;
+    color:#ffffff;
+    font-weight:bold;
+    text-shadow:
+        0 0 10px rgba(255,255,255,0.8),
+        0 0 30px rgba(173,216,255,0.7);
+
+    animation:textAppear 2s ease;
+}
+
+@keyframes textAppear{
+    0%{
+        opacity:0;
+        transform:translate(-50%,-40%);
+    }
+    100%{
+        opacity:1;
+        transform:translate(-50%,-50%);
+    }
+}
+
+/* Tombol WA */
+
+.wa-btn{
+    margin-top:25px;
+    display:inline-block;
+    padding:14px 34px;
+    border-radius:50px;
+    text-decoration:none;
+    color:white;
+    font-size:18px;
+    font-weight:bold;
+
+    background:linear-gradient(
+        135deg,
+        #25D366,
+        #128C7E
+    );
+
+    box-shadow:
+        0 0 20px rgba(37,211,102,0.5);
+
+    transition:0.3s;
+}
+
+.wa-btn:hover{
+    transform:scale(1.08);
+    box-shadow:
+        0 0 30px rgba(37,211,102,0.8);
+}
+
+/* Credit */
+
+.credit{
+    position:fixed;
+    bottom:12px;
+    left:15px;
+    font-size:15px;
+    color:white;
+    background:rgba(255,255,255,0.12);
+    padding:8px 14px;
+    border-radius:20px;
+    backdrop-filter:blur(6px);
+    box-shadow:0 0 10px rgba(0,0,0,0.08);
+    letter-spacing:1px;
+    z-index:999;
+}
+</style>
+</head>
+
+<body>
+
+<!-- Hiasan -->
+<div class="bubble b1"></div>
+<div class="bubble b2"></div>
+<div class="bubble b3"></div>
+
+<div class="star s1">✦</div>
+<div class="star s2">✦</div>
+<div class="star s3">✦</div>
+
+<div class="love love1">💖</div>
+<div class="love love2">🌸</div>
+
+<!-- SCENE 1 -->
+<div class="scene1 active" id="scene1">
+
+    <div class="card">
+
+        <h1>Selamat Balik Pondok 🌸</h1>
+
+        <div class="message">
+            Semoga hari-harimu di pondok selalu diberi kemudahan,
+            hati yang kuat, dan semangat yang tidak mudah hilang.
+            Jangan menyerah walau lelah,
+            karena nantinya semua perjuanganmu akan menjadi cerita indah 😁
+        </div>
+
+        <button onclick="startScene()">
+            Tekan
+        </button>
+
+    </div>
+
+</div>
+
+<!-- SCENE 2 -->
+<div class="scene2" id="scene2">
+
+    <!-- Bulan -->
+    <div class="moon"></div>
+
+    <!-- Pohon -->
+    <div class="tree t1"></div>
+    <div class="tree t2"></div>
+    <div class="tree t3"></div>
+    <div class="tree t4"></div>
+
+    <!-- Gunung -->
+    <div class="mountain"></div>
+
+    <!-- Tulisan Tengah -->
+    <div class="semangat">
+
+        <div>
+            Semangattt yaa 😉✨
+        </div>
+
+        <a
+            href="https://chat.whatsapp.com/Cz1pZ63hnz196KIoXguQYN"
+            target="_blank"
+            class="wa-btn"
+        >
+            Siapp!!
+        </a>
+
+    </div>
+
+</div>
+
+<!-- Credit -->
+<div class="credit">
+    By Zikri ✨
+</div>
+
+<script>
+
+/* =========================
+   TRANSISI SCENE
+========================= */
+
+function startScene(){
+
+    const scene1 =
+    document.getElementById("scene1");
+
+    const scene2 =
+    document.getElementById("scene2");
+
+    scene1.classList.add("hide");
+
+    setTimeout(()=>{
+
+        scene1.classList.remove("active");
+
+        scene2.classList.add("active");
+
+        createStars();
+        createShootingStars();
+
+    },1000);
+}
+
+/* =========================
+   BINTANG LANGIT
+========================= */
+
+function createStars(){
+
+    for(let i=0;i<120;i++){
+
+        let star =
+        document.createElement("div");
+
+        star.classList.add("static-star");
+
+        let size =
+        Math.random()*3 + 1;
+
+        star.style.width =
+        size + "px";
+
+        star.style.height =
+        size + "px";
+
+        star.style.top =
+        Math.random()*100 + "vh";
+
+        star.style.left =
+        Math.random()*100 + "vw";
+
+        star.style.animationDuration =
+        (2 + Math.random()*4) + "s";
+
+        document.body.appendChild(star);
+    }
+}
+
+/* =========================
+   SHOOTING STAR
+========================= */
+
+function createShootingStars(){
+
+    setInterval(()=>{
+
+        let shoot =
+        document.createElement("div");
+
+        shoot.classList.add("shooting-star");
+
+        shoot.style.top =
+        Math.random()*40 + "vh";
+
+        shoot.style.left =
+        (60 + Math.random()*40) + "vw";
+
+        shoot.style.animationDuration =
+        (1 + Math.random()*1.5) + "s";
+
+        document.body.appendChild(shoot);
+
+        setTimeout(()=>{
+            shoot.remove();
+        },3000);
+
+    },700);
+}
+
+</script>
+
+</body>
+</html>
